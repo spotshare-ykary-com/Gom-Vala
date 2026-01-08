@@ -80,8 +80,13 @@ namespace Yk {
 
 /*
  * to compile:
- * valac --vapidir . -X -I/home/nar6du14/Projects/vala/gom -X -L/home/nar6du14/Projects/vala/gom -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
+ * valac --vapidir . -X -I/{dir_path containing gom's headers files} -X -L/{dir_path containing libgom.a} -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
  * 
  * to generate the "c" code:
- * valac --ccode --vapidir . -X -I/home/nar6du14/Projects/vala/gom -X -L/home/nar6du14/Projects/vala/gom -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
+ * 
+ * valac --ccode --vapidir . -X -I/{dir_path containing gom's headers files} -X -L/{dir_path containing libgom.a} -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
+ * 
+ * gcc -I/{dir_path containing gom's headers files} -L/{dir_path containing libgom.a} -lgom $(pkg-config --cflags gio-2.0 json-glib-1.0 sqlite3 gom-1.0) $(pkg-config --libs gio-2.0 json-glib-1.0 sqlite3 gom-1.0)  main.c -o main
+ * 
+ *  #### it may be easier to place all the files in the sa folder for testing purpose  #####
  */
