@@ -10,23 +10,23 @@ namespace Gom {
 		}
 		public string get_sql (GLib.HashTable<string, string> table_map);
 		public GLib.Array<GLib.Value> get_values ();
-		public Filter.new_sql (string sql, GLib.Array<GLib.Value> values);
-		public Filter.new_or (Filter left, Filter right);
-		public Filter.new_or_full (Filter first, ...);
-		public Filter.new_or_fullv ([CCode (array_null_terminated = true)] Filter[] filter_array);
-		public Filter.new_and (Filter left, Filter right);
-		public Filter.new_and_full (Filter first, ...);
-		public Filter.new_and_fullv ([CCode (array_null_terminated = true)] Filter[] filter_array);
-		public Filter.new_eq (GLib.Type resource_type, string property_name, GLib.Value value);
-		public Filter.new_neq (GLib.Type resource_type, string property_name, GLib.Value value);
-		public Filter.new_gt (GLib.Type resource_type, string property_name, GLib.Value value);
-		public Filter.new_gte (GLib.Type resource_type, string property_name, GLib.Value value);
-		public Filter.new_lt (GLib.Type resource_type, string property_name, GLib.Value value);
-		public Filter.new_lte (GLib.Type resource_type, string property_name, GLib.Value value);
-		public Filter.new_like (GLib.Type resource_type, string property_name, GLib.Value value);
-		public Filter.new_glob (GLib.Type resource_type, string property_name, GLib.Value value);
-		public Filter.new_is_null (GLib.Type resource_type, string property_name);
-		public Filter.new_is_not_null (GLib.Type resource_type, string property_name);
+		public Filter.sql (string sql, GLib.Array<GLib.Value> values);
+		public Filter.or (Filter left, Filter right);
+		public Filter.or_full (Filter first, ...);
+		public Filter.or_fullv ([CCode (array_null_terminated = true)] Filter[] filter_array);
+		public Filter.and (Filter left, Filter right);
+		public Filter.and_full (Filter first, ...);
+		public Filter.and_fullv ([CCode (array_null_terminated = true)] Filter[] filter_array);
+		public Filter.eq (GLib.Type resource_type, string property_name, GLib.Value value);
+		public Filter.neq (GLib.Type resource_type, string property_name, GLib.Value value);
+		public Filter.gt (GLib.Type resource_type, string property_name, GLib.Value value);
+		public Filter.gte (GLib.Type resource_type, string property_name, GLib.Value value);
+		public Filter.lt (GLib.Type resource_type, string property_name, GLib.Value value);
+		public Filter.lte (GLib.Type resource_type, string property_name, GLib.Value value);
+		public Filter.like (GLib.Type resource_type, string property_name, GLib.Value value);
+		public Filter.glob (GLib.Type resource_type, string property_name, GLib.Value value);
+		public Filter.is_null (GLib.Type resource_type, string property_name);
+		public Filter.is_not_null (GLib.Type resource_type, string property_name);
 	}
 	[CCode (cheader_filename = "gom-repository.h", has_target = true)]
 	public delegate bool RepositoryMigrator (Repository repository, Adapter adapter, uint version) throws GLib.Error;
