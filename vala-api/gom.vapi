@@ -93,7 +93,10 @@ namespace Gom {
 	}
 	[CCode (cheader_filename = "gom-repository.h,gom-resource-group.h", type_id = "gom_resource_group_get_type ()")]
 	public class ResourceGroup: GLib.Object {
-		public int count {get;construct;}
+		public uint size {
+			get {return count;}
+		}
+		public uint count {get;construct;}
 		public Filter filter {[CCode (cname = "gom_resource_group_get_filter_x")] get;construct;}
 		public Sorting sorting {[CCode (cname = "gom_resource_group_get_sorting_x")] get;construct;}
 		public GLib.Type resource_type {[CCode (cname = "gom_resource_group_get_resource_type_x")] get;construct;}
@@ -109,6 +112,9 @@ namespace Gom {
 		public bool fetch_sync (uint index_, uint count) throws GLib.Error;
 		public uint get_count ();
 		public Resource get_index (uint index_);
+		public Resource get (uint index) {
+			return get_index (index);
+	    }
 		public string get_m2m_table ();
 		[CCode (cname = "gom_resource_group_get_sorting_x")] 
 		public Sorting get_sorting ();
