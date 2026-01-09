@@ -4,7 +4,7 @@ using GLib;
 namespace Gom {
 	[CCode (cheader_filename = "gom-filter.h", type_id = "gom_filter_get_type ()")]
 	public class Filter: GLib.Object {
-		public string sql {[CCode (cname = "gom_filter_get_sql_x")] get;construct;}
+		public string sql_str {[CCode (cname = "gom_filter_get_sql_x")] get;construct;}
 		public FilterMode mode {[CCode (cname = "gom_filter_get_mode_x")] get;construct;}
 		[CCode (has_construct_function = false)]
 		public Filter (){
