@@ -14,7 +14,7 @@ This is a first try to adapt the lib.
   
  2. compile the c code with gcc 
  
- gcc -I/{dir_path containing gom's headers files} -L/{dir_path containing libgom.a} -lgom $(pkg-config --cflags gio-2.0 json-glib-1.0 sqlite3 gom-1.0) $(pkg-config --libs gio-2.0 json-glib-1.0 sqlite3 gom-1.0)  main.c -o main
+ gcc -I/{dir_path containing gom's headers files} -L/{dir_path containing libgom.a}   main.c -o main -lgom $(pkg-config --cflags gio-2.0 json-glib-1.0 sqlite3) $(pkg-config --libs gio-2.0 json-glib-1.0 sqlite3)
  
  > to test on linux
  

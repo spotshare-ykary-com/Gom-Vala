@@ -65,7 +65,7 @@ namespace Yk {
         Gom.Adapter adapter;
         Gom.Repository repo;
 		try {
-		    repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test0/test.db", out adapter);
+		    repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
 		    repo.automatic_migrate_sync (1, (owned) ltypes);
 		    adapter.close_sync ();
 		} catch (Gom.Error e) {

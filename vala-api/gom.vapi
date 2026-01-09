@@ -50,6 +50,8 @@ namespace Gom {
 	}
 	[CCode (cheader_filename = "gom-resource.h", type_id = "gom_resource_get_type ()")]
 	public class Resource : GLib.Object {
+		public Repository repository {[CCode(cname = "gom_resource_get_repository_x")] get;
+			                          [CCode(cname = "gom_resource_set_repository_x")] set;}
 		[CCode (has_construct_function = false)]
 		public Resource () {
 			Object ();
@@ -58,6 +60,10 @@ namespace Gom {
 		public class char table[64];
 		public class char primary_key[64];
 		/* class func */
+		[CCode(cname = "gom_resource_set_repository_x")]
+		void set_repository (Repository? repository);
+		[CCode(cname = "gom_resource_get_repository_x")]
+		Repository? get_repository ();
 		[CCode (cname = "gom_resource_class_set_table")]
 		public class void set_table (string table);
 		[CCode (cname = "gom_resource_class_set_primary_key")]

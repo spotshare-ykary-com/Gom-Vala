@@ -1163,3 +1163,20 @@ _gom_resource_weak_notify (GomResource *resource)
   GomResourcePrivate *priv = resource->priv;
   priv->repository = NULL;
 }
+
+
+void             
+gom_resource_set_repository_x (GomResource *resource,
+                               GomRepository *repository)
+{
+	g_object_set (G_OBJECT (resource), "repository", repository, NULL);
+}
+
+    
+GomRepository*
+gom_resource_get_repository_x (GomResource *resource)
+{
+	GomRepository* repository = NULL;
+	g_object_get (G_OBJECT (resource), "repository", &repository, NULL);
+	return repository;
+} 

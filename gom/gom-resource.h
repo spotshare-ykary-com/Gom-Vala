@@ -132,6 +132,10 @@ void              gom_resource_fetch_m2m_async       (GomResource          *reso
 GomResourceGroup *gom_resource_fetch_m2m_finish      (GomResource          *resource,
                                                       GAsyncResult         *result,
                                                       GError              **error);
+void             gom_resource_set_repository_x (GomResource          *resource,
+                                                GomRepository        *repository);    
+GomRepository    *gom_resource_get_repository_x (GomResource         *resource);        
+                                           
 
 G_END_DECLS
 
