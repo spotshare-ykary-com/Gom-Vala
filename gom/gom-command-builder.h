@@ -76,6 +76,8 @@ void        gom_command_builder_set_limit             (GomCommandBuilder *builde
 GomFilter   *gom_command_builder_get_filter           (GomCommandBuilder *builder);
 void        gom_command_builder_set_filter            (GomCommandBuilder *builder, GomFilter* filter);
 GomAdapter  *gom_command_builder_get_adapter          (GomCommandBuilder *builder);
+void        gom_command_builder_set_sorting           (GomCommandBuilder *builder, GomSorting* sorting);
+GomSorting  *gom_command_builder_get_sorting          (GomCommandBuilder *builder);
                                                                                       
 G_END_DECLS
 

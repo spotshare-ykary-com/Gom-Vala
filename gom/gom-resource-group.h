@@ -87,8 +87,13 @@ gboolean     gom_resource_group_fetch_sync    (GomResourceGroup     *group,
 guint        gom_resource_group_get_count     (GomResourceGroup     *group);
 GomResource *gom_resource_group_get_index     (GomResourceGroup     *group,
                                                guint                 index_);
-const gchar *gom_resource_group_get_m2m_table (GomResourceGroup     *group);
-GType        gom_resource_group_get_type      (void) G_GNUC_CONST;
+const gchar    *gom_resource_group_get_m2m_table (GomResourceGroup     *group);
+GType          gom_resource_group_get_type      (void) G_GNUC_CONST;
+GType          gom_resource_group_get_resource_type_x (GomResourceGroup *group);
+GomRepository  *gom_resource_group_get_repository_x (GomResourceGroup *group);
+GomFilter      *gom_resource_group_get_filter_x (GomResourceGroup *group);
+GomSorting     *gom_resource_group_get_sorting_x (GomResourceGroup *group);
+GType          gom_resource_group_get_m2m_type_x (GomResourceGroup *group);
 
 G_END_DECLS
 

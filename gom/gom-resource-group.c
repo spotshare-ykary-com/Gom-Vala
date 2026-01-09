@@ -1149,3 +1149,56 @@ gom_resource_group_init (GomResourceGroup *group)
    group->priv = gom_resource_group_get_instance_private(group);
    g_mutex_init (&group->priv->items_mutex);
 }
+
+GType                
+gom_resource_group_get_resource_type_x (GomResourceGroup *group)
+{
+	GType t;
+	g_object_get (G_OBJECT (group), "resource-type", &t, NULL);
+	return t;
+}
+
+
+GomRepository*
+gom_resource_group_get_repository_x (GomResourceGroup *group)
+{
+	GomRepository* t = NULL;
+	g_object_get (G_OBJECT (group), "repository", &t, NULL);
+	return t;
+}
+
+
+GomFilter*
+gom_resource_group_get_filter_x (GomResourceGroup *group)
+{
+	GomFilter* t = NULL;
+	g_object_get (G_OBJECT (group), "filter", &t, NULL);
+	return t;
+}
+
+
+gboolean             
+gom_resource_group_get_is_writable (GomResourceGroup *group)
+{
+	gboolean t;
+	g_object_get (G_OBJECT (group), "is-writable", &t, NULL);
+	return t;
+}
+
+
+GomSorting*
+gom_resource_group_get_sorting_x (GomResourceGroup *group)
+{
+	GomSorting* t = NULL;
+	g_object_get (G_OBJECT (group), "sorting", &t, NULL);
+	return t;
+}
+
+
+GType
+gom_resource_group_get_m2m_type_x (GomResourceGroup *group)
+{
+	GType t;
+	g_object_get (G_OBJECT (group), "m2m-type", &t, NULL);
+	return t;
+}

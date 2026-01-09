@@ -78,6 +78,15 @@ gom_repository_get_adapter (GomRepository *repository)
    return repository->priv->adapter;
 }
 
+
+GomAdapter*
+gom_repository_get_adapter_x (GomRepository *repository)
+{
+	return GOM_ADAPTER (g_object_ref (gom_repository_get_adapter (repository)));
+}
+
+
+
 static void
 gom_repository_set_adapter (GomRepository *repository,
                             GomAdapter    *adapter)

@@ -295,9 +295,9 @@ gom_cursor_class_init (GomCursorClass *klass)
 
    gParamSpecs[PROP_STATEMENT] =
       g_param_spec_pointer("statement",
-                          "Statement",
-                          "A pointer to a sqlite3_stmt.",
-                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                           "Statement",
+                           "A pointer to a sqlite3_stmt.",
+                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
    g_object_class_install_property(object_class, PROP_STATEMENT,
                                    gParamSpecs[PROP_STATEMENT]);
 }

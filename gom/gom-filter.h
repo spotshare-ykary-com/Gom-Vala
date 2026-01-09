@@ -112,6 +112,8 @@ GomFilter   *gom_filter_new_is_null     (GType          resource_type,
                                          const gchar   *property_name);
 GomFilter   *gom_filter_new_is_not_null (GType          resource_type,
                                          const gchar   *property_name);
+gchar       *gom_filter_get_sql_x       (GomFilter     *filter);
+GomFilterMode gom_filter_get_mode_x       (GomFilter     *filter);
 
 G_END_DECLS
 

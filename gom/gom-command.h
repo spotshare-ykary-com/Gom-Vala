@@ -82,6 +82,10 @@ void         gom_command_set_param_uint64 (GomCommand    *command,
 void         gom_command_set_param_string (GomCommand    *command,
                                            guint          param,
                                            const gchar   *value);
+                                           
+#include "gom-adapter.h"
+                                           
+GomAdapter   *gom_command_get_adapter_x (GomCommand *command);
 
 G_END_DECLS
 

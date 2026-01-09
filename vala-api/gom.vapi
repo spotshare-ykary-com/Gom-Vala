@@ -4,10 +4,14 @@ using GLib;
 namespace Gom {
 	[CCode (cheader_filename = "gom-filter.h", type_id = "gom_filter_get_type ()")]
 	public class Filter: GLib.Object {
+		public string sql {[CCode (cname = "gom_filter_get_sql_x")] get;construct;}
+		public FilterMode mode {[CCode (cname = "gom_filter_get_mode_x")] get;construct;}
 		[CCode (has_construct_function = false)]
 		public Filter (){
 			Object ();
 		}
+		[CCode (cname = "gom_filter_get_mode_x")]
+		public FilterMode get_mode ();
 		public string get_sql (GLib.HashTable<string, string> table_map);
 		public GLib.Array<GLib.Value> get_values ();
 		public Filter.sql (string sql, GLib.Array<GLib.Value> values);
@@ -32,10 +36,12 @@ namespace Gom {
 	public delegate bool RepositoryMigrator (Repository repository, Adapter adapter, uint version) throws GLib.Error;
 	[CCode (cheader_filename = "gom-repository.h", type_id = "gom_repository_get_type ()")]
 	public class Repository: GLib.Object {
-		public Adapter adapter {get;construct;}
 		[CCode (has_construct_function = false)]
 		public Repository (Adapter adapter);
+		public Adapter adapter {[CCode (cname = "gom_repository_get_adapter_x")] get;construct;}
 		/* sync func */
+		[CCode (cname = "gom_repository_get_adapter_x")]
+		public Adapter get_adapter ();
 		public bool migrate_sync (uint version, RepositoryMigrator migrator) throws GLib.Error;
         public bool automatic_migrate_sync (uint version, owned GLib.List<GLib.Type> object_types) throws GLib.Error;
         public Resource? find_one_sync (GLib.Type resource_type, Filter filter) throws GLib.Error;
@@ -88,6 +94,13 @@ namespace Gom {
 	}
 	[CCode (cheader_filename = "gom-repository.h,gom-resource-group.h", type_id = "gom_resource_group_get_type ()")]
 	public class ResourceGroup: GLib.Object {
+		public int count {get;construct;}
+		public Filter filter {[CCode (cname = "gom_resource_group_get_filter_x")] get;construct;}
+		public Sorting sorting {[CCode (cname = "gom_resource_group_get_sorting_x")] get;construct;}
+		public GLib.Type resource_type {[CCode (cname = "gom_resource_group_get_resource_type_x")] get;construct;}
+		public GLib.Type m2m_type {[CCode (cname = "gom_resource_group_get_m2m_type_x")] get;construct;}
+		public bool is_writable {get;construct;}
+		public Repository repository {[CCode (cname = "gom_resource_group_get_repository_x")] get;construct;}
 		[CCode (has_construct_function = false)]
 		public ResourceGroup (Repository repository);
 		/* sync func */
@@ -98,6 +111,17 @@ namespace Gom {
 		public uint get_count ();
 		public Resource get_index (uint index_);
 		public string get_m2m_table ();
+		[CCode (cname = "gom_resource_group_get_sorting_x")] 
+		public Sorting get_sorting ();
+		[CCode (cname = "gom_resource_group_get_filter_x")] 
+		public Filter get_filter ();
+		[CCode (cname = "gom_resource_group_get_resource_type_x")] 
+		public GLib.Type get_resource_type ();
+		[CCode (cname = "gom_resource_group_get_m2m_type_x")] 
+		public GLib.Type get_m2m_type ();
+		[CCode (cname = "gom_resource_group_get_repository_x")] 
+		public Repository get_repository ();
+		public bool get_is_writable ();
 		/* async func */
 		public async bool write_async () throws GLib.Error;
         public async bool delete_async () throws GLib.Error;
@@ -169,10 +193,11 @@ namespace Gom {
 		public Command () {
 			Object ();
 		}
-		//public Adapter adapter {get;construct;}
 		public string sql {set;}
+		public Adapter adapter {get;construct;}
 		public bool execute (out Cursor cursor) throws GLib.Error;
-		//public void set_sql (string sql);
+		public void set_sql (string sql);
+		public Adapter get_adapter ();
 		public int get_param_index (string param_name);
 		public void reset ();
 		public void set_param (uint param, GLib.Value value);
@@ -190,15 +215,12 @@ namespace Gom {
 		public CommandBuilder () {
 			Object ();
 		}
-		public Adapter adapter {get;construct;}
+		public Adapter adapter {[CCode (cname = "gom_command_get_adapter_x")] get;construct;}
 		public Filter filter {get;set;}
 		public Sorting sorting {get;set;}
 		public uint limit {get;set;}
-		[CCode(cname="m2m-table")]
 		public string m2m_table {get;construct;}
-		[CCode(cname="m2m-type")]
 		public GLib.Type m2m_type {get;construct;}
-		[CCode (cname = "resource-type")]
 		public GLib.Type resource_type {get;set;}
 		public uint offset {get;set;}
 		public Command build_count ();
@@ -207,6 +229,20 @@ namespace Gom {
 		public Command build_insert (Resource resource);
 		public Command build_update (Resource resource);
 		public GLib.List build_create (uint version);
+		public GLib.Type get_resource_type ();
+		public GLib.Type get_m2m_type ();
+		public string get_m2m_table ();
+		public uint get_limit ();
+		public uint get_offset ();
+		public Filter get_filter ();
+		[CCode (cname = "gom_command_get_adapter_x")]
+		public Adapter get_adapter ();
+		public Sorting get_sorting ();
+		public void set_sorting (Sorting sorting);
+		public void set_limit (uint limit);
+		public void set_offset (uint offset);
+		public void set_filter (Filter filter);
+		public void set_resource_type (GLib.Type resource_type);
 	}
 	[CCode (cheader_filename = "gom-filter.h", cprefix = "GOM_FILTER_", has_type_id = true, type_id = "gom_filter_mode_get_type ()")]
 	public enum FilterMode {

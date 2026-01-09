@@ -1122,3 +1122,115 @@ gom_command_builder_init (GomCommandBuilder *builder)
 {
    builder->priv = gom_command_builder_get_instance_private(builder);
 }
+
+
+GType       
+gom_command_builder_get_resource_type (GomCommandBuilder *builder)
+{
+	GType t;
+	g_object_get (G_OBJECT (builder), "resource-type", &t, NULL);
+	return t;
+}
+
+
+void        
+gom_command_builder_set_resource_type (GomCommandBuilder *builder, 
+                                       GType resource_type)
+{
+	g_object_set (G_OBJECT (builder), "resource-type", resource_type, NULL);
+}
+
+
+guint       
+gom_command_builder_get_offset (GomCommandBuilder *builder)
+{
+	guint t;
+	g_object_get (G_OBJECT (builder), "offset", &t, NULL);
+	return t;
+}
+
+
+void        
+gom_command_builder_set_offset (GomCommandBuilder *builder, 
+                                guint offset)
+{
+	g_object_set (G_OBJECT (builder), "offset", offset, NULL);
+}
+
+
+GType       
+gom_command_builder_get_m2m_type (GomCommandBuilder *builder)
+{
+	GType t;
+	g_object_get (G_OBJECT (builder), "m2m-type", &t, NULL);
+	return t;
+}
+
+
+gchar*
+gom_command_builder_get_m2m_table (GomCommandBuilder *builder)
+{
+	gchar* t = NULL;
+	g_object_get (G_OBJECT (builder), "m2m-table", &t, NULL);
+	return t;
+}
+
+
+guint       
+gom_command_builder_get_limit (GomCommandBuilder *builder)
+{
+	guint t;
+	g_object_get (G_OBJECT (builder), "limit", &t, NULL);
+	return t;
+}
+
+
+void        
+gom_command_builder_set_limit (GomCommandBuilder *builder, 
+                               guint limit)
+{
+	g_object_set (G_OBJECT (builder), "limit", limit, NULL);
+}
+
+
+GomFilter*
+gom_command_builder_get_filter (GomCommandBuilder *builder)
+{
+	GomFilter* t = NULL;
+	g_object_get (G_OBJECT (builder), "filter", &t, NULL);
+	return t;
+}
+
+
+void        
+gom_command_builder_set_filter (GomCommandBuilder *builder, 
+                                GomFilter* filter)
+{
+	g_object_set (G_OBJECT (builder), "filter", filter, NULL);
+}
+
+
+GomAdapter*
+gom_command_builder_get_adapter (GomCommandBuilder *builder)
+{
+	GomAdapter* t = NULL;
+	g_object_get (G_OBJECT (builder), "adapter", &t, NULL);
+	return t;
+}
+
+
+void        
+gom_command_builder_set_sorting (GomCommandBuilder *builder, 
+                                GomSorting* sorting)
+{
+	g_object_set (G_OBJECT (builder), "sorting", sorting, NULL);
+}
+
+
+GomSorting*
+gom_command_builder_get_sorting (GomCommandBuilder *builder)
+{
+	GomSorting* t = NULL;
+	g_object_get (G_OBJECT (builder), "sorting", &t, NULL);
+	return t;
+}

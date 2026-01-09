@@ -19,7 +19,7 @@
 #include <sqlite3.h>
 #include <string.h>
 
-#include "gom-adapter.h" patched
+//#include "gom-adapter.h" patched
 #include "gom-command.h"
 #include "gom-error.h"
 
@@ -578,4 +578,12 @@ gom_command_init (GomCommand *command)
 {
    command->priv = gom_command_get_instance_private(command);
    command->priv->blobs = g_ptr_array_new_with_free_func ((GDestroyNotify) g_bytes_unref);
+}
+
+GomAdapter*
+gom_command_get_adapter_x (GomCommand *command)
+{
+	GomAdapter* adapter = NULL;
+	g_object_get (G_OBJECT (command), "adapter", adapter, NULL);
+	return adapter;
 }

@@ -133,6 +133,7 @@ void              gom_repository_find_sorted_async (GomRepository          *repo
 GomResourceGroup *gom_repository_find_finish     (GomRepository          *repository,
                                                   GAsyncResult           *result,
                                                   GError                **error);
+GomAdapter       *gom_repository_get_adapter_x   (GomRepository          *repository);
 
 G_END_DECLS
 
