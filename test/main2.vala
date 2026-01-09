@@ -1,0 +1,126 @@
+using GLib;
+using Gom;
+using Json;
+
+namespace Yk {
+	public Gom.Repository? easy_open_sync (string db_uri, out Gom.Adapter adapter) throws GLib.Error {
+		adapter = new Gom.Adapter ();
+		try {
+		  adapter.open_sync (db_uri);
+	    }catch (Gom.Error e)
+	    {
+			if (e is Gom.Error.ADAPTER_OPEN) {
+			    stdout.printf ("Error: %s\n", e.message);
+			    adapter.close_sync ();
+		        throw e;
+		    }
+		}
+		return new Gom.Repository (adapter);
+	}
+	public class Monitor: Gom.Resource {
+		private class bool _init = false;
+		public class void ma_methode (int a) {
+			stdout.printf ("ax2: %d\n", a*2);
+		}
+		public Monitor () {
+		}
+	    public int64 id {get;set;default = 0;}
+	    public string name {get;set;default = null;}
+	    public string username {get;set;default = "admin";}
+	    public string password {get;set;default = "admin";}
+	    public string mid {get;set;default = null;}
+	    public string connectic {get;set;default = null;}
+	    public string description {get;set;default = null;}
+	    [SimpleType (min = 0, max = 100)]
+	    public int volume {get;set;default = 0;}
+        construct {
+			if (_init) return; 
+			set_table ("monitor");
+			set_primary_key ("id");
+			set_unique ("name");
+			set_unique ("mid");
+			set_notnull ("name");
+			set_notnull ("mid");
+			set_notnull ("password");
+			set_notnull ("username");
+			_init = true;
+        }
+	}
+	public class Tesla: Monitor {
+		private class bool _init = false;
+		[SimpleType (min = 0, max = 1000)]
+	    public int64 koko {get;set;default = 0;}
+	    public string surname {get;set;default = null;}		
+        construct {
+			if (_init) return; 
+			set_table ("tesla");
+			set_notnull ("koko");
+			set_notnull ("surname");
+			_init = true;
+        }
+	}
+	public void main0 () {
+		Monitor monitor = new Monitor ();
+		Tesla tesla = new Tesla ();
+		var ltypes = new GLib.List<GLib.Type> ();
+		ltypes.append (monitor.get_type ());
+		ltypes.append (tesla.get_type ());
+        Gom.Adapter adapter;
+        Gom.Repository repo;
+		try {
+		    repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
+		    repo.automatic_migrate_sync (1, (owned) ltypes);
+		    monitor.repository = repo;
+		    monitor.name = "arcgus";
+		    monitor.username = "root";
+		    monitor.password = "1235789";
+		    monitor.mid = "752156987poioi";
+		    monitor.save_sync ();
+		    adapter.close_sync ();
+		} catch (Gom.Error e) {
+			stdout.printf ("Error: %s\n", e.message);
+			if (e is Gom.Error.ADAPTER_OPEN) {
+		        repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
+		        repo.automatic_migrate_sync (1, (owned) ltypes);
+		    }
+		    else if (e is Gom.Error.COMMAND_SQLITE) {
+		        stdout.printf ("COMMAND_SQLITE has failed\n");
+		    }
+		    adapter.close_sync ();
+			return;
+		}
+	}
+	public void main () {
+        Gom.Adapter adapter;
+        Gom.Repository repo;
+		try {
+			var dummy = new Monitor ();
+			var t = dummy.get_type ();
+			var v = Value (typeof(string));
+			v.set_string ("root");
+			var f = new Gom.Filter.eq (t, "username", v);
+			v.set_string ("boumzong");
+			var f1 = new Gom.Filter.eq (t, "name", v);
+			var f2 = new Gom.Filter.and (f, f1);
+		    repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
+		    Monitor monitor = repo.find_one_sync (t, f2) as Monitor;
+		    stdout.printf ("name: %s\n username: %s\n, password: %s\n", monitor.name, monitor.username, monitor.password);
+		    monitor.delete_sync ();
+		    adapter.close_sync ();
+		} catch (Gom.Error e) {
+			stdout.printf ("Error: %s\n", e.message);
+		    if (e is Gom.Error.COMMAND_SQLITE) {
+		        stdout.printf ("COMMAND_SQLITE has failed\n");
+		    }
+		    adapter.close_sync ();
+		}
+	}
+}
+
+/*
+ * to compile:
+ * valac --vapidir . -X -I/home/nar6du14/Projects/vala/gom -X -L/home/nar6du14/Projects/vala/gom -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
+ * 
+ * to generate the "c" code:
+ * valac --ccode --vapidir . -X -I/home/nar6du14/Projects/vala/gom -X -L/home/nar6du14/Projects/vala/gom -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
+ */
