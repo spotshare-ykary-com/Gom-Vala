@@ -92,6 +92,7 @@ GType          gom_resource_group_get_type      (void) G_GNUC_CONST;
 GType          gom_resource_group_get_resource_type_x (GomResourceGroup *group);
 GomRepository  *gom_resource_group_get_repository_x (GomResourceGroup *group);
 GomFilter      *gom_resource_group_get_filter_x (GomResourceGroup *group);
+#include "gom-sorting.h"
 GomSorting     *gom_resource_group_get_sorting_x (GomResourceGroup *group);
 GType          gom_resource_group_get_m2m_type_x (GomResourceGroup *group);
 

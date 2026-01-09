@@ -25,7 +25,7 @@
 #include "gom-resource.h"
 #include "gom-resource-priv.h"
 #include "gom-resource-group.h"
-#include "gom-sorting.h"
+//#include "gom-sorting.h"
 
 struct _GomResourceGroupPrivate
 {
