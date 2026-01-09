@@ -761,15 +761,6 @@ gom_filter_mode_get_type (void)
 }
 
 
-gchar*
-gom_filter_get_sql_x (GomFilter *filter)
-{
-	gchar* sql = NULL;
-	g_object_get (G_OBJECT (filter), "sql", &sql, NULL);
-	return sql;
-}
-
-
 GomFilterMode 
 gom_filter_get_mode_x (GomFilter *filter)
 {
