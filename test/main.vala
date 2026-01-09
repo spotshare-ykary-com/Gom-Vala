@@ -65,7 +65,7 @@ namespace Yk {
         Gom.Adapter adapter;
         Gom.Repository repo;
 		try {
-		    repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
+		    repo = easy_open_sync ("/database_path/test0.db", out adapter); //bad path to see how error is reported
 		    repo.automatic_migrate_sync (1, (owned) ltypes);
 		    monitor.repository = repo;
 		    monitor.name = "arcgus";
@@ -77,7 +77,7 @@ namespace Yk {
 		} catch (Gom.Error e) {
 			stdout.printf ("Error: %s\n", e.message);
 			if (e is Gom.Error.ADAPTER_OPEN) {
-		        repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
+		        repo = easy_open_sync ("/database_path/test.db", out adapter);
 		        repo.automatic_migrate_sync (1, (owned) ltypes);
 		    }
 		    else if (e is Gom.Error.COMMAND_SQLITE) {
