@@ -19,6 +19,9 @@ namespace Yk {
 	}
 	public class Monitor: Gom.Resource {
 		private class bool _init = false;
+		public class void ma_methode (int a) {
+			stdout.printf ("ax2: %d\n", a*2);
+		}
 		public Monitor () {
 		}
 	    public int64 id {get;set;default = 0;}
@@ -56,7 +59,7 @@ namespace Yk {
 			_init = true;
         }
 	}
-	public void main () {
+	public void main0 () {
 		Monitor monitor = new Monitor ();
 		Tesla tesla = new Tesla ();
 		var ltypes = new GLib.List<GLib.Type> ();
@@ -65,7 +68,7 @@ namespace Yk {
         Gom.Adapter adapter;
         Gom.Repository repo;
 		try {
-		    repo = easy_open_sync ("/database_path/test0.db", out adapter); //bad path to see how error is reported
+		    repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
 		    repo.automatic_migrate_sync (1, (owned) ltypes);
 		    monitor.repository = repo;
 		    monitor.name = "arcgus";
@@ -77,7 +80,7 @@ namespace Yk {
 		} catch (Gom.Error e) {
 			stdout.printf ("Error: %s\n", e.message);
 			if (e is Gom.Error.ADAPTER_OPEN) {
-		        repo = easy_open_sync ("/database_path/test.db", out adapter);
+		        repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
 		        repo.automatic_migrate_sync (1, (owned) ltypes);
 		    }
 		    else if (e is Gom.Error.COMMAND_SQLITE) {
@@ -87,5 +90,22 @@ namespace Yk {
 			return;
 		}
 	}
-
+	public void main () {
+        Gom.Adapter adapter;
+        Gom.Repository repo;
+		try {
+			var dummy = new Monitor ();
+		    repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
+		    Monitor monitor = repo.find_one_sync (dummy.get_type (), null) as Monitor;
+		    stdout.printf ("name: %s\n username: %s\n, password: %s\n", monitor.name, monitor.username, monitor.password);
+		    monitor.delete_sync ();
+		    adapter.close_sync ();
+		} catch (Gom.Error e) {
+			stdout.printf ("Error: %s\n", e.message);
+		    if (e is Gom.Error.COMMAND_SQLITE) {
+		        stdout.printf ("COMMAND_SQLITE has failed\n");
+		    }
+		    adapter.close_sync ();
+		}
+	}
 }

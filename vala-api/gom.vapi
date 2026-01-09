@@ -38,15 +38,15 @@ namespace Gom {
 		/* sync func */
 		public bool migrate_sync (uint version, RepositoryMigrator migrator) throws GLib.Error;
         public bool automatic_migrate_sync (uint version, owned GLib.List<GLib.Type> object_types) throws GLib.Error;
-        public Resource find_one_sync (GLib.Type resource_type, Filter filter) throws GLib.Error;
-		public ResourceGroup find_sync (GLib.Type resource_type, Filter filter) throws GLib.Error;
-		public ResourceGroup find_sorted_sync (GLib.Type resource_type, Filter filter, Sorting sorting) throws GLib.Error;
+        public Resource? find_one_sync (GLib.Type resource_type, Filter? filter) throws GLib.Error;
+		public ResourceGroup? find_sync (GLib.Type resource_type, Filter? filter) throws GLib.Error;
+		public ResourceGroup? find_sorted_sync (GLib.Type resource_type, Filter? filter, Sorting sorting) throws GLib.Error;
 		/* async func */
 		public async bool migrate_async (uint version, RepositoryMigrator migrator) throws GLib.Error;
         public async bool automatic_migrate_async (uint version, owned GLib.List<GLib.Type> object_types) throws GLib.Error;
-		public async Resource find_one_async (GLib.Type resource_type, Filter filter) throws GLib.Error;
-		public async ResourceGroup find_async (GLib.Type resource_type, Filter filter) throws GLib.Error;
-		public async ResourceGroup find_sorted_async (GLib.Type resource_type, Filter filter, Sorting sorting) throws GLib.Error;
+		public async Resource? find_one_async (GLib.Type resource_type, Filter? filter) throws GLib.Error;
+		public async ResourceGroup? find_async (GLib.Type resource_type, Filter? filter) throws GLib.Error;
+		public async ResourceGroup? find_sorted_async (GLib.Type resource_type, Filter? filter, Sorting sorting) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "gom-resource.h", type_id = "gom_resource_get_type ()")]
 	public class Resource : GLib.Object {
