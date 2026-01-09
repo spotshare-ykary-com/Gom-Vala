@@ -909,8 +909,15 @@ yk_main (void)
 		GomRepository* _tmp7_;
 		GomRepository* _tmp8_;
 		GList* _tmp9_;
-		GomAdapter* _tmp10_;
-		_tmp6_ = yk_easy_open_sync ("/home/nar6du14/Projects/vala/gom/test0/test.db", &_tmp5_, &_inner_error0_);
+		YkMonitor* _tmp10_;
+		GomRepository* _tmp11_;
+		YkMonitor* _tmp12_;
+		YkMonitor* _tmp13_;
+		YkMonitor* _tmp14_;
+		YkMonitor* _tmp15_;
+		YkMonitor* _tmp16_;
+		GomAdapter* _tmp17_;
+		_tmp6_ = yk_easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", &_tmp5_, &_inner_error0_);
 		_g_object_unref0 (adapter);
 		adapter = _tmp5_;
 		_tmp4_ = _tmp6_;
@@ -935,8 +942,28 @@ yk_main (void)
 			}
 			goto __finally0;
 		}
-		_tmp10_ = adapter;
-		gom_adapter_close_sync (_tmp10_, &_inner_error0_);
+		_tmp10_ = monitor;
+		_tmp11_ = repo;
+		gom_resource_set_repository_x ((GomResource*) _tmp10_, _tmp11_);
+		_tmp12_ = monitor;
+		yk_monitor_set_name (_tmp12_, "arcgus");
+		_tmp13_ = monitor;
+		yk_monitor_set_username (_tmp13_, "root");
+		_tmp14_ = monitor;
+		yk_monitor_set_password (_tmp14_, "1235789");
+		_tmp15_ = monitor;
+		yk_monitor_set_mid (_tmp15_, "752156987poioi");
+		_tmp16_ = monitor;
+		gom_resource_save_sync ((GomResource*) _tmp16_, &_inner_error0_);
+		if (G_UNLIKELY (_inner_error0_ != NULL)) {
+			_g_object_unref0 (_tmp4_);
+			if (_inner_error0_->domain == GOM_ERROR) {
+				goto __catch0_gom_error;
+			}
+			goto __finally0;
+		}
+		_tmp17_ = adapter;
+		gom_adapter_close_sync (_tmp17_, &_inner_error0_);
 		if (G_UNLIKELY (_inner_error0_ != NULL)) {
 			_g_object_unref0 (_tmp4_);
 			if (_inner_error0_->domain == GOM_ERROR) {
@@ -950,51 +977,62 @@ yk_main (void)
 	__catch0_gom_error:
 	{
 		GError* e = NULL;
-		FILE* _tmp11_;
-		GError* _tmp12_;
-		const gchar* _tmp13_;
-		GomRepository* _tmp14_ = NULL;
-		GomAdapter* _tmp15_ = NULL;
-		GomRepository* _tmp16_;
-		GomRepository* _tmp17_;
-		GomRepository* _tmp18_;
-		GList* _tmp19_;
-		GomAdapter* _tmp20_;
+		FILE* _tmp18_;
+		GError* _tmp19_;
+		const gchar* _tmp20_;
+		GError* _tmp21_;
+		GomAdapter* _tmp30_;
 		e = _inner_error0_;
 		_inner_error0_ = NULL;
-		_tmp11_ = stdout;
-		_tmp12_ = e;
-		_tmp13_ = _tmp12_->message;
-		fprintf (_tmp11_, "Error: %s\n", _tmp13_);
-		_tmp16_ = yk_easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", &_tmp15_, &_inner_error0_);
-		_g_object_unref0 (adapter);
-		adapter = _tmp15_;
-		_tmp14_ = _tmp16_;
+		_tmp18_ = stdout;
+		_tmp19_ = e;
+		_tmp20_ = _tmp19_->message;
+		fprintf (_tmp18_, "Error: %s\n", _tmp20_);
+		_tmp21_ = e;
+		if (g_error_matches (_tmp21_, GOM_ERROR, GOM_ERROR_ADAPTER_OPEN)) {
+			GomRepository* _tmp22_ = NULL;
+			GomAdapter* _tmp23_ = NULL;
+			GomRepository* _tmp24_;
+			GomRepository* _tmp25_;
+			GomRepository* _tmp26_;
+			GList* _tmp27_;
+			_tmp24_ = yk_easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", &_tmp23_, &_inner_error0_);
+			_g_object_unref0 (adapter);
+			adapter = _tmp23_;
+			_tmp22_ = _tmp24_;
+			if (G_UNLIKELY (_inner_error0_ != NULL)) {
+				_g_error_free0 (e);
+				goto __finally0;
+			}
+			_tmp25_ = _tmp22_;
+			_tmp22_ = NULL;
+			_g_object_unref0 (repo);
+			repo = _tmp25_;
+			_tmp26_ = repo;
+			_tmp27_ = ltypes;
+			ltypes = NULL;
+			gom_repository_automatic_migrate_sync (_tmp26_, (guint) 1, _tmp27_, &_inner_error0_);
+			if (G_UNLIKELY (_inner_error0_ != NULL)) {
+				_g_object_unref0 (_tmp22_);
+				_g_error_free0 (e);
+				goto __finally0;
+			}
+			_g_object_unref0 (_tmp22_);
+		} else {
+			GError* _tmp28_;
+			_tmp28_ = e;
+			if (g_error_matches (_tmp28_, GOM_ERROR, GOM_ERROR_COMMAND_SQLITE)) {
+				FILE* _tmp29_;
+				_tmp29_ = stdout;
+				fprintf (_tmp29_, "COMMAND_SQLITE has failed\n");
+			}
+		}
+		_tmp30_ = adapter;
+		gom_adapter_close_sync (_tmp30_, &_inner_error0_);
 		if (G_UNLIKELY (_inner_error0_ != NULL)) {
 			_g_error_free0 (e);
 			goto __finally0;
 		}
-		_tmp17_ = _tmp14_;
-		_tmp14_ = NULL;
-		_g_object_unref0 (repo);
-		repo = _tmp17_;
-		_tmp18_ = repo;
-		_tmp19_ = ltypes;
-		ltypes = NULL;
-		gom_repository_automatic_migrate_sync (_tmp18_, (guint) 1, _tmp19_, &_inner_error0_);
-		if (G_UNLIKELY (_inner_error0_ != NULL)) {
-			_g_object_unref0 (_tmp14_);
-			_g_error_free0 (e);
-			goto __finally0;
-		}
-		_tmp20_ = adapter;
-		gom_adapter_close_sync (_tmp20_, &_inner_error0_);
-		if (G_UNLIKELY (_inner_error0_ != NULL)) {
-			_g_object_unref0 (_tmp14_);
-			_g_error_free0 (e);
-			goto __finally0;
-		}
-		_g_object_unref0 (_tmp14_);
 		_g_error_free0 (e);
 		_g_object_unref0 (repo);
 		_g_object_unref0 (adapter);

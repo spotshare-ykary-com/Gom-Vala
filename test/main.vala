@@ -67,11 +67,22 @@ namespace Yk {
 		try {
 		    repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
 		    repo.automatic_migrate_sync (1, (owned) ltypes);
+		    monitor.repository = repo;
+		    monitor.name = "arcgus";
+		    monitor.username = "root";
+		    monitor.password = "1235789";
+		    monitor.mid = "752156987poioi";
+		    monitor.save_sync ();
 		    adapter.close_sync ();
 		} catch (Gom.Error e) {
 			stdout.printf ("Error: %s\n", e.message);
-		    repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
-		    repo.automatic_migrate_sync (1, (owned) ltypes);
+			if (e is Gom.Error.ADAPTER_OPEN) {
+		        repo = easy_open_sync ("/home/nar6du14/Projects/vala/gom/test/test.db", out adapter);
+		        repo.automatic_migrate_sync (1, (owned) ltypes);
+		    }
+		    else if (e is Gom.Error.COMMAND_SQLITE) {
+		        stdout.printf ("COMMAND_SQLITE has failed\n");
+		    }
 		    adapter.close_sync ();
 			return;
 		}
@@ -80,13 +91,8 @@ namespace Yk {
 
 /*
  * to compile:
- * valac --vapidir . -X -I/{dir_path containing gom's headers files} -X -L/{dir_path containing libgom.a} -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
+ * valac --vapidir . -X -I/home/nar6du14/Projects/vala/gom -X -L/home/nar6du14/Projects/vala/gom -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
  * 
  * to generate the "c" code:
- * 
- * valac --ccode --vapidir . -X -I/{dir_path containing gom's headers files} -X -L/{dir_path containing libgom.a} -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
- * 
- * gcc -I/{dir_path containing gom's headers files} -L/{dir_path containing libgom.a} -lgom $(pkg-config --cflags gio-2.0 json-glib-1.0 sqlite3 gom-1.0) $(pkg-config --libs gio-2.0 json-glib-1.0 sqlite3 gom-1.0)  main.c -o main
- * 
- *  #### it may be easier to place all the files in the sa folder for testing purpose  #####
+ * valac --ccode --vapidir . -X -I/home/nar6du14/Projects/vala/gom -X -L/home/nar6du14/Projects/vala/gom -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
  */
