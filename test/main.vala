@@ -88,11 +88,3 @@ namespace Yk {
 		}
 	}
 }
-
-/*
- * to compile:
- * valac --vapidir . -X -I/home/nar6du14/Projects/vala/gom -X -L/home/nar6du14/Projects/vala/gom -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
- * 
- * to generate the "c" code:
- * valac --ccode --vapidir . -X -I/home/nar6du14/Projects/vala/gom -X -L/home/nar6du14/Projects/vala/gom -X -lgom --pkg glib-2.0 --pkg gio-2.0 --pkg json-glib-1.0 --pkg sqlite3 main.vala gom.vapi
- */
