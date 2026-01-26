@@ -43,15 +43,15 @@ namespace Gom {
 		public Adapter get_adapter ();
 		public bool migrate_sync (uint version, RepositoryMigrator migrator) throws GLib.Error;
         public bool automatic_migrate_sync (uint version, owned GLib.List<GLib.Type> object_types) throws GLib.Error;
-        public Resource? find_one_sync (GLib.Type resource_type, Filter filter) throws GLib.Error;
-		public ResourceGroup? find_sync (GLib.Type resource_type, Filter filter) throws GLib.Error;
-		public ResourceGroup? find_sorted_sync (GLib.Type resource_type, Filter filter, Sorting sorting) throws GLib.Error;
+        public Resource? find_one_sync (GLib.Type resource_type, Filter? filter = null) throws GLib.Error;
+		public ResourceGroup? find_sync (GLib.Type resource_type, Filter? filter = null) throws GLib.Error;
+		public ResourceGroup? find_sorted_sync (GLib.Type resource_type, Filter? filter = null, Sorting? sorting = null) throws GLib.Error;
 		/* async func */
 		public async bool migrate_async (uint version, RepositoryMigrator migrator) throws GLib.Error;
         public async bool automatic_migrate_async (uint version, owned GLib.List<GLib.Type> object_types) throws GLib.Error;
-		public async Resource? find_one_async (GLib.Type resource_type, Filter filter) throws GLib.Error;
-		public async ResourceGroup? find_async (GLib.Type resource_type, Filter filter) throws GLib.Error;
-		public async ResourceGroup? find_sorted_async (GLib.Type resource_type, Filter filter, Sorting sorting) throws GLib.Error;
+		public async Resource? find_one_async (GLib.Type resource_type, Filter? filter = null) throws GLib.Error;
+		public async ResourceGroup? find_async (GLib.Type resource_type, Filter? filter = null) throws GLib.Error;
+		public async ResourceGroup? find_sorted_async (GLib.Type resource_type, Filter? filter = null, Sorting? sorting = null) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "gom-resource.h", type_id = "gom_resource_get_type ()")]
 	public class Resource : GLib.Object {
@@ -194,10 +194,6 @@ namespace Gom {
 	}
 	[CCode (cheader_filename = "gom-command.h", type_id = "gom_command_get_type ()")]
 	public class Command: GLib.Object {
-		[CCode (has_construct_function = false)]
-		public Command () {
-			Object ();
-		}
 		public string sql {set;}
 		public Adapter adapter {get;construct;}
 		public bool execute (out Cursor cursor) throws GLib.Error;
@@ -216,10 +212,6 @@ namespace Gom {
 	}
 	[CCode (cheader_filename = "gom-command-builder.h", type_id = "gom_command_builder_get_type ()")]
 	public class CommandBuilder: GLib.Object {
-		[CCode (has_construct_function = false)]
-		public CommandBuilder () {
-			Object ();
-		}
 		public Adapter adapter {[CCode (cname = "gom_command_get_adapter_x")] get;construct;}
 		public Filter filter {get;set;}
 		public Sorting sorting {get;set;}
